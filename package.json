@@ -2,6 +2,7 @@
   "name": "questionnaire-be",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js",
     "start:dev": "nodemon index.js"
@@ -13,6 +14,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.21.2",
+    "express-validator": "^7.2.1",
     "mongoose": "^8.12.2"
   }
 }
