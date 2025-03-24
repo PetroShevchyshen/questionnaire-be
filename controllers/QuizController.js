@@ -9,7 +9,6 @@ export const createQuiz = async (req, res) => {
     if (!error.isEmpty()) {
       return res.status(500).json(error.array());
     }
-
     const { title, description, questions } = req.body;
 
     const newQuiz = new Quiz({
@@ -89,3 +88,21 @@ export const getById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 }
+
+export const remove = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedQuiz = await Quiz.findOneAndDelete({ _id: id });
+
+    if (!deletedQuiz) {
+      return res.status(404).json({ message: "Not found" });
+    }
+
+    res.json({ message: "Success" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Can’t delete quiz" });
+  }
+
+};

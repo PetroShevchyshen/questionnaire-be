@@ -1,6 +1,6 @@
 import { model, Schema } from "mongoose";
 
-const userResponse = Schema({
+const userAnswer = Schema({
   quiz: { type: Schema.Types.ObjectId, ref: "Quiz", required: true },
   answers: [
     {
@@ -11,4 +11,4 @@ const userResponse = Schema({
   score: { type: Number, default: 0 }
 }, { timestamps: true });
 
-export default model("UserResponse", userResponse);
+export default model("UserAnswer", userAnswer);
