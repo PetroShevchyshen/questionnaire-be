@@ -2,11 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv"
-
-import { quizValidation } from "./validations/quiz.js"
-
-import * as QuizController from "./controllers/QuizController.js"
-import * as UserController from "./controllers/UserController.js"
+import userRoute from "./components/user/entry-points/user.route.js"
+import quizRoute from "./components/quiz/entry-points/quiz.rout.js"
 
 dotenv.config();
 const app = express();
@@ -18,12 +15,9 @@ mongoose.connect(url).then(() => {
   console.log("db ok")
 })
 
-app.post("/quiz", quizValidation, QuizController.createQuiz);
-app.get("/quiz", QuizController.getAll);
-app.get("/quiz/:id", QuizController.getById);
-app.delete("/quiz/:id", QuizController.remove);
+app.use('/api/user', userRoute);
+app.use('/api/quiz', quizRoute);
 
-app.post("/answer", UserController.submitAnswer);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
