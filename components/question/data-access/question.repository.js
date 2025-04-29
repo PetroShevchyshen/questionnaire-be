@@ -1,10 +1,10 @@
-import questionModel from "./models/question.model.js";
+import QuestionModel from "./models/question.model.js";
 
 export const createQuestion = async (questionData, session) => {
-  const question = new questionModel(questionData);
+  const question = new QuestionModel(questionData);
   return question.save({ session });
 };
 
 export const updateQuestionAnswers = async (questionId, answerIds, session) => {
-  return questionModel.findByIdAndUpdate(questionId, { answers: answerIds }, { new: true, session });
+  return QuestionModel.findByIdAndUpdate(questionId, { answers: answerIds }, { new: true, session });
 };

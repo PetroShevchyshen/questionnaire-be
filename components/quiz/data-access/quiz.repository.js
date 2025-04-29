@@ -1,8 +1,8 @@
-import quizModel from "./models/quiz.model.js"
+import QuizModel from "./models/quiz.model.js"
 
 
 export const createQuiz = async (quizData, session) => {
-  const quiz = new quizModel(quizData);
+  const quiz = new QuizModel(quizData);
   return quiz.save({ session });
 };
 
@@ -12,7 +12,7 @@ export const updateQuizQuestions = async (quizId, questionIds, session) => {
 
 export const getAllQuizzes = async () => {
   try {
-    const quizzes = await quizModel.find().populate({
+    const quizzes = await QuizModel.find().populate({
       path: "questions",
       populate: { path: "answers" }
     });
@@ -24,7 +24,7 @@ export const getAllQuizzes = async () => {
 
 export const getQuizById = async (id) => {
   try {
-    const quiz = await quizModel.findById(id).populate({
+    const quiz = await QuizModel.findById(id).populate({
       path: "questions",
       populate: { path: "answers" }
     });
@@ -36,7 +36,7 @@ export const getQuizById = async (id) => {
 
 export const deleteQuiz = async (id) => {
   try {
-    const deletedQuiz = quizModel.findOneAndDelete({ _id: id });
+    const deletedQuiz = QuizModel.findOneAndDelete({ _id: id });
     return deletedQuiz
   } catch (error) {
     console.error("Repository error in deleteQuiz:", err);
@@ -44,7 +44,7 @@ export const deleteQuiz = async (id) => {
 }
 
 export const incrementQuizCount = async (id) => {
-  return quizModel.findByIdAndUpdate(
+  return QuizModel.findByIdAndUpdate(
     id,
     { $inc: { count: 1 } }
   );
