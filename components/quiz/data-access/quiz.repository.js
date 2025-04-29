@@ -3,11 +3,11 @@ import quizModel from "./models/quiz.model.js"
 
 export const createQuiz = async (quizData, session) => {
   const quiz = new quizModel(quizData);
-  return await quiz.save({ session });
+  return quiz.save({ session });
 };
 
 export const updateQuizQuestions = async (quizId, questionIds, session) => {
-  return await Quiz.findByIdAndUpdate(quizId, { questions: questionIds }, { new: true, session });
+  return Quiz.findByIdAndUpdate(quizId, { questions: questionIds }, { new: true, session });
 };
 
 export const getAllQuizzes = async () => {
@@ -44,7 +44,7 @@ export const deleteQuiz = async (id) => {
 }
 
 export const incrementQuizCount = async (id) => {
-  return await quizModel.findByIdAndUpdate(
+  return quizModel.findByIdAndUpdate(
     id,
     { $inc: { count: 1 } }
   );
