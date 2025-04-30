@@ -1,6 +1,6 @@
 import * as QuizRepository from "../data-access/quiz.repository.js"
-import { createQuiz } from "../data-access/quiz.repository.js";
-import { createQuestion } from "../../question/data-access/question.repository.js";
+import { createQuiz, updateQuizQuestions } from "../data-access/quiz.repository.js";
+import { createQuestion, updateQuestionAnswers } from "../../question/data-access/question.repository.js";
 import { createAnswers } from "../../answer/data-access/answer.repository.js"
 import mongoose from 'mongoose';
 
@@ -28,7 +28,7 @@ export const createQuizWithQuestions = async ({ title, description, questions })
       await updateQuestionAnswers(question._id, answerIds, session);
     }
 
-    const updatedQuiz = await updateQuizQuestions(quiz._id, questionIds, session);
+    const updatedQuiz = await updateQuizQuestions({ quizId: quiz._id, questionIds: questionIds }, session);
 
     await session.commitTransaction();
     session.endSession();
