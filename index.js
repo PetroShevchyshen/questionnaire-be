@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv"
 import userRoute from "./components/user/entry-points/user.route.js"
-import quizRoute from "./components/quiz/entry-points/quiz.rout.js"
+import quizRoute from "./components/quiz/entry-points/quiz.route.js"
 
 dotenv.config();
 const app = express();
