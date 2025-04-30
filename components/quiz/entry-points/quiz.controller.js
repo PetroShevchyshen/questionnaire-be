@@ -21,7 +21,7 @@ export const create = async (req, res) => {
 export const getAll = async (req, res) => {
   try {
     const quizzes = await getAllQuizzes();
-    res.json({ data: quizzes, status: StatusCodes.OK })
+    res.status(StatusCodes.OK).json(quizzes)
   } catch (error) {
     console.log(error)
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -40,7 +40,7 @@ export const getById = async (req, res) => {
       return res.status(StatusCodes.NOT_FOUND).json({ message: "Quiz not found" });
     }
 
-    res.json({ data: quiz, status: StatusCodes.OK });
+    res.status(StatusCodes.OK).json(quiz);
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error.message });
   }
@@ -56,7 +56,7 @@ export const remove = async (req, res) => {
       return res.status(StatusCodes.NOT_FOUND).json({ message: "Not found" });
     }
 
-    res.json({ message: "Success", status: StatusCodes.OK });
+    res.status(StatusCodes.OK).json({ message: "Success" });
   } catch (error) {
     console.error(error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: "Can’t delete quiz" });
