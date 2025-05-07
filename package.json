@@ -8,9 +8,9 @@
     "start:dev": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Petro Shevchyshen",
   "license": "ISC",
-  "description": "",
+  "description": "pet project",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
@@ -18,5 +18,13 @@
     "express-validator": "^7.2.1",
     "http-status-codes": "^2.3.0",
     "mongoose": "^8.12.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
+    "@types/mongoose": "^5.11.96",
+    "@types/node": "^22.15.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   }
 }

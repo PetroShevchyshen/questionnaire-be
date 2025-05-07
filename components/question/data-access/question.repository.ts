@@ -1,4 +1,4 @@
-import QuestionModel from "./models/question.model.js";
+import QuestionModel from "./models/question.model";
 
 export const createQuestion = async (questionData, session) => {
   try {
@@ -11,8 +11,13 @@ export const createQuestion = async (questionData, session) => {
 };
 
 export const updateQuestionAnswers = async (questionId, answerIds, session) => {
-  return QuestionModel.findByIdAndUpdate(questionId, { answers: answerIds }, { new: true, session })
-    .exec().catch(error => {
+  return QuestionModel.findByIdAndUpdate(
+    questionId,
+    { answers: answerIds },
+    { new: true, session }
+  )
+    .exec()
+    .catch((error) => {
       console.error("Repository error in updateQuestionAnswers:", error);
       throw error;
     });
