@@ -1,11 +1,12 @@
 import { model, Schema } from "mongoose";
+import { IUserAnswer } from "../../types/models/userAnswer.type";
 
-const userAnswer = new Schema(
+const userAnswer = new Schema<IUserAnswer>(
   {
     quiz: { type: Schema.Types.ObjectId, ref: "Quiz", required: true },
     answers: [
       {
-        questionID: {
+        questionId: {
           type: Schema.Types.ObjectId,
           ref: "Question",
           required: true,
@@ -22,4 +23,4 @@ const userAnswer = new Schema(
   { timestamps: true }
 );
 
-export default model("UserAnswer", userAnswer);
+export default model<IUserAnswer>("UserAnswer", userAnswer);

@@ -1,11 +1,9 @@
+import { HydratedDocument } from "mongoose";
+import { IUserAnswer } from "../types/models/userAnswer.type";
 import UserAnswerModel from "./models/userAnswer.model";
 
-export const createUserAnswer = async (submitData: any) => {
-  try {
-    const answer = new UserAnswerModel(submitData);
-    await answer.save();
-  } catch (error) {
-    console.log("Fail of creating user answer", error);
-    throw error;
-  }
+export const createUserAnswer = async (
+  submitData: IUserAnswer
+): Promise<HydratedDocument<IUserAnswer>> => {
+  return new UserAnswerModel(submitData).save();
 };

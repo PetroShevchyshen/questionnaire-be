@@ -1,21 +1,22 @@
+import { ClientSession, Types } from "mongoose";
 import QuizModel from "./models/quiz.model";
+import { IQuiz } from "../types/models/quiz.type";
+import { quizUpdateData } from "../types/quizUpdate";
 
-export const createQuiz = async (quizData, session) => {
-  try {
-    const quiz = new QuizModel(quizData);
-    return await quiz.save({ session });
-  } catch (error) {
-    console.error("Repository error in createQuiz:", error);
-    throw error;
-  }
+export const createQuiz = async (quizData: IQuiz, session: ClientSession) => {
+  return new QuizModel(quizData).save({ session });
 };
 
-export const updateQuizQuestions = async (quizData, session) => {
+export const updateQuizQuestions = async (
+  quizData: quizUpdateData,
+  session: ClientSession
+) => {
   return QuizModel.findByIdAndUpdate(
     quizData.quizId,
     { questions: quizData.questionIds },
     { new: true, session }
   )
+    .lean()
     .exec()
     .catch((error) => {
       console.error("Repository error in updateQuizQuestions:", error);
@@ -29,6 +30,7 @@ export const getAllQuizzes = async () => {
       path: "questions",
       populate: { path: "answers" },
     })
+    .lean()
     .exec()
     .catch((error) => {
       console.error("Repository error in getAllQuizzes:", error);
@@ -36,12 +38,13 @@ export const getAllQuizzes = async () => {
     });
 };
 
-export const getQuizById = async (id) => {
+export const getQuizById = async (id: Types.ObjectId) => {
   return QuizModel.findById(id)
     .populate({
       path: "questions",
       populate: { path: "answers" },
     })
+    .lean()
     .exec()
     .catch((error) => {
       console.error("Repository error in getQuizById:", error);
@@ -49,8 +52,9 @@ export const getQuizById = async (id) => {
     });
 };
 
-export const deleteQuiz = async (id) => {
+export const deleteQuiz = async (id: Types.ObjectId) => {
   return QuizModel.findOneAndDelete({ _id: id })
+    .lean()
     .exec()
     .catch((error) => {
       console.error("Repository error in deleteQuiz:", error);
@@ -58,8 +62,9 @@ export const deleteQuiz = async (id) => {
     });
 };
 
-export const incrementQuizCount = async (id) => {
+export const incrementQuizCount = async (id: Types.ObjectId) => {
   return QuizModel.findByIdAndUpdate(id, { $inc: { count: 1 } })
+    .lean()
     .exec()
     .catch((error) => {
       console.error("Repository error in incrementQuizCount:", error);

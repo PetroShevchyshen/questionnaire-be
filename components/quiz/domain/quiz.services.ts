@@ -8,7 +8,8 @@ import {
   updateQuestionAnswers,
 } from "../../question/data-access/question.repository";
 import { createAnswers } from "../../answer/data-access/answer.repository";
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
+import { IQuestion } from "../../question/types/models/question.type";
 
 export const createQuizWithQuestions = async ({
   title,
@@ -17,18 +18,21 @@ export const createQuizWithQuestions = async ({
 }: {
   title: string;
   description: string;
-  questions: string;
+  questions: IQuestion[];
 }) => {
   const session = await mongoose.startSession();
   session.startTransaction();
 
   try {
-    const quiz = await createQuiz({ title, description }, session);
+    const quiz = await createQuiz(
+      { title, description, questions: [] },
+      session
+    );
     const questionIds = [];
 
     for (const q of questions) {
       const question = await createQuestion(
-        { quiz: quiz._id, text: q.text },
+        { quiz: quiz._id, text: q.text, answers: q.answers },
         session
       );
       questionIds.push(question._id);
@@ -65,10 +69,10 @@ export const getAllQuizzes = async () => {
   return await QuizRepository.getAllQuizzes();
 };
 
-export const getQuizById = async (id) => {
+export const getQuizById = async (id: Types.ObjectId) => {
   return await QuizRepository.getQuizById(id);
 };
 
-export const deleteQuizById = async (id) => {
+export const deleteQuizById = async (id: Types.ObjectId) => {
   return await QuizRepository.deleteQuiz(id);
 };
