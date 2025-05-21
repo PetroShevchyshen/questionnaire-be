@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "ES2023"
+    ],
+    "target": "ES2023",
+    "module": "ESNext",
+    "rootDir": "./",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "types": [
+      "node",
+      "express"
+    ]
+  },
+  "include": [
+    "index.ts",
+    "components/**/*",
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
