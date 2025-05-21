@@ -1,6 +1,6 @@
 import { IAnswerRequest } from "../../../answer/types/request/answer.type";
 
-export interface IQuestion {
+export interface IQuestionRequest {
   text: string;
-  answers?: IAnswerRequest[];
+  answers: IAnswerRequest[];
 }

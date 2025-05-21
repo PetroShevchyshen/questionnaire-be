@@ -1,8 +1,8 @@
-import { IQuestion } from "../../../question/types/models/question.type";
+import { Types } from "mongoose";
 
 export interface IQuiz {
   title: string;
   description?: string;
-  questions: IQuestion[];
+  questions: Types.ObjectId[];
   count?: number;
 }
