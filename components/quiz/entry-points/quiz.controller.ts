@@ -12,11 +12,11 @@ export const create = async (req: Request, res: Response) => {
   try {
     const error = validationResult(req);
     if (!error.isEmpty()) {
-      res.sendStatus(StatusCodes.BAD_REQUEST).json(error.array());
+      res.status(StatusCodes.BAD_REQUEST).json(error.array());
       return;
     }
     const quiz = await createQuizWithQuestions(req.body);
-    res.sendStatus(StatusCodes.CREATED).json(quiz);
+    res.status(StatusCodes.CREATED).json(quiz);
   } catch (error) {
     console.log(error);
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
@@ -26,10 +26,10 @@ export const create = async (req: Request, res: Response) => {
 export const getAll = async (_req: Request, res: Response) => {
   try {
     const [quizzes, quizzesCount] = await getAllQuizzes();
-    res.sendStatus(StatusCodes.OK).json({ quizzes, quizzesCount });
+    res.status(StatusCodes.OK).json({ quizzes, quizzesCount });
   } catch (error) {
     console.log(error);
-    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: "Get all quizzes error",
     });
   }
@@ -49,7 +49,7 @@ export const getById = async (req: Request, res: Response) => {
     res.status(StatusCodes.OK).json(quiz);
   } catch (error) {
     res
-      .sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .json({ message: "Quiz getById error" });
   }
 };
@@ -69,7 +69,7 @@ export const remove = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     res
-      .sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .json({ message: "Can’t delete quiz" });
   }
 };
