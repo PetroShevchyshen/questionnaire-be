@@ -24,13 +24,15 @@ export const updateQuizQuestions = async (
     });
 };
 
-export const getAllQuizzes = async () => {
+export const getAllQuizzes = async (skipItems: number, limit: number) => {
   return Promise.all([
     QuizModel.find()
       .populate({
         path: "questions",
         populate: { path: "answers" },
       })
+      .skip(skipItems)
+      .limit(limit)
       .lean()
       .exec()
       .catch((error) => {

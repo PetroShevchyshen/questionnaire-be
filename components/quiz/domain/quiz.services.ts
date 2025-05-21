@@ -55,8 +55,8 @@ export const createQuizWithQuestions = async ({
   }
 };
 
-export const getAllQuizzes = async () => {
-  return QuizRepository.getAllQuizzes();
+export const getAllQuizzes = async (skipItems: number, limit: number) => {
+  return QuizRepository.getAllQuizzes(skipItems, limit);
 };
 
 export const getQuizById = async (id: string) => {
