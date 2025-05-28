@@ -7,6 +7,7 @@ import {
   createQuizWithQuestions,
   getQuizById,
 } from "../domain/quiz.services";
+import logger from "../../../config/logger";
 
 export const create = async (req: Request, res: Response) => {
   try {
@@ -18,7 +19,7 @@ export const create = async (req: Request, res: Response) => {
     const quiz = await createQuizWithQuestions(req.body);
     res.status(StatusCodes.CREATED).json(quiz);
   } catch (error) {
-    console.log(error);
+    logger.error(error);
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
   }
 };
@@ -31,7 +32,7 @@ export const getAll = async (req: Request, res: Response) => {
     const [quizzes, quizzesCount] = await getAllQuizzes(skipItems, limit);
     res.status(StatusCodes.OK).json({ quizzes, quizzesCount });
   } catch (error) {
-    console.log(error);
+    logger.error(error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: "Get all quizzes error",
     });
@@ -51,6 +52,7 @@ export const getById = async (req: Request, res: Response) => {
 
     res.status(StatusCodes.OK).json(quiz);
   } catch (error) {
+    logger.error(error);
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .json({ message: "Quiz getById error" });
@@ -70,7 +72,7 @@ export const remove = async (req: Request, res: Response) => {
 
     res.status(StatusCodes.OK).json({ message: "Success" });
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .json({ message: "Can’t delete quiz" });

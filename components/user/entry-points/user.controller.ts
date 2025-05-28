@@ -1,12 +1,13 @@
 import { StatusCodes } from "http-status-codes";
 import { submitUserAnswer } from "../domain/user.service";
 import { Request, Response } from "express";
+import logger from "../../../config/logger";
 
 export const submitAnswer = async (req: Request, res: Response) => {
   try {
     await submitUserAnswer(req.body);
     res.status(StatusCodes.CREATED);
   } catch (error) {
-    console.log(error);
+    logger.error("Fail of submitAnswer:", error);
   }
 };

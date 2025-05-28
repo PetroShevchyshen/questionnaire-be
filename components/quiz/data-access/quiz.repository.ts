@@ -1,4 +1,5 @@
 import { ClientSession, isValidObjectId } from "mongoose";
+import logger from "../../../config/logger";
 import QuizModel from "./models/quiz.model";
 import { IQuiz } from "../types/models/quiz.type";
 import { quizUpdateData } from "../types/quizUpdate";
@@ -11,6 +12,9 @@ export const updateQuizQuestions = async (
   quizData: quizUpdateData,
   session: ClientSession
 ) => {
+  checkIsIdIsValid(quizData.quizId);
+  quizData.questionIds.map((questionId) => checkIsIdIsValid(questionId));
+
   return QuizModel.findByIdAndUpdate(
     quizData.quizId,
     { questions: quizData.questionIds },
@@ -19,7 +23,7 @@ export const updateQuizQuestions = async (
     .lean()
     .exec()
     .catch((error) => {
-      console.error("Repository error in updateQuizQuestions:", error);
+      logger.error("Repository error in updateQuizQuestions:", error);
       throw error;
     });
 };
@@ -36,7 +40,7 @@ export const getAllQuizzes = async (skipItems: number, limit: number) => {
       .lean()
       .exec()
       .catch((error) => {
-        console.error("Repository error in getAllQuizzes:", error);
+        logger.error("Repository error in getAllQuizzes:", error);
         throw error;
       }),
     QuizModel.countDocuments(),
@@ -53,7 +57,7 @@ export const getQuizById = async (id: string) => {
     .lean()
     .exec()
     .catch((error) => {
-      console.error("Repository error in getQuizById:", error);
+      logger.error("Repository error in getQuizById:", error);
       throw error;
     });
 };
@@ -64,7 +68,7 @@ export const deleteQuiz = async (id: string) => {
     .lean()
     .exec()
     .catch((error) => {
-      console.error("Repository error in deleteQuiz:", error);
+      logger.error("Repository error in deleteQuiz:", error);
       throw error;
     });
 };
@@ -75,7 +79,7 @@ export const incrementQuizCount = async (id: string) => {
     .lean()
     .exec()
     .catch((error) => {
-      console.error("Repository error in incrementQuizCount:", error);
+      logger.error("Repository error in incrementQuizCount:", error);
       throw error;
     });
 };
