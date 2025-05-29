@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import logger from "../../../config/logger";
 import * as QuizRepository from "../data-access/quiz.repository";
 import { createQuiz } from "../data-access/quiz.repository";
 import {
@@ -50,7 +51,7 @@ export const createQuizWithQuestions = async ({
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
-    console.log("Fail of creating quiz", error);
+    logger.error("Fail of creating quiz", error);
     throw error;
   }
 };

@@ -1,6 +1,7 @@
 import { ClientSession, Types } from "mongoose";
 import QuestionModel from "./models/question.model";
 import { IQuestion } from "../types/models/question.type";
+import logger from "../../../config/logger";
 
 export const createQuestion = async (
   questionData: IQuestion,
@@ -22,7 +23,7 @@ export const updateQuestionAnswers = async (
     .lean()
     .exec()
     .catch((error) => {
-      console.error("Repository error in updateQuestionAnswers:", error);
+      logger.error("Repository error in updateQuestionAnswers:", error);
       throw error;
     });
 };
