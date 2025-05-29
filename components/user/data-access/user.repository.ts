@@ -7,3 +7,30 @@ export const createUserAnswer = async (
 ): Promise<HydratedDocument<IUserAnswer>> => {
   return new UserAnswerModel(submitData).save();
 };
+
+export const AvgAnswers = () => {
+  return UserAnswerModel.aggregate([
+    {
+      $group: {
+        _id: "$quiz",
+        avg: { $avg: "$score" },
+      },
+    },
+    { $addFields: { quizId: "$_id" } },
+    {
+      $lookup: {
+        from: "quizzes",
+        localField: "quizId",
+        foreignField: "_id",
+        as: "result",
+      },
+    },
+    { $unwind: { path: "$result" } },
+    {
+      $project: {
+        avg: "$avg",
+        quiz: "$result.title",
+      },
+    },
+  ]).exec();
+};
