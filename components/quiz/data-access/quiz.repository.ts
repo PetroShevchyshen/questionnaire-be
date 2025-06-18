@@ -3,6 +3,7 @@ import logger from "../../../config/logger";
 import QuizModel from "./models/quiz.model";
 import { IQuiz } from "../types/models/quiz.type";
 import { quizUpdateData } from "../types/quizUpdate";
+import { QuizSortOrder } from "../types/quizSort.enum";
 
 export const createQuiz = async (quizData: IQuiz, session: ClientSession) => {
   return new QuizModel(quizData).save({ session });
@@ -28,13 +29,19 @@ export const updateQuizQuestions = async (
     });
 };
 
-export const getAllQuizzes = async (skipItems: number, limit: number) => {
+export const getAllQuizzes = async (
+  skipItems: number,
+  limit: number,
+  sortField: string,
+  sortOrderValue: QuizSortOrder
+) => {
   return Promise.all([
     QuizModel.find()
       .populate({
         path: "questions",
         populate: { path: "answers" },
       })
+      .sort({ [sortField]: sortOrderValue })
       .skip(skipItems)
       .limit(limit)
       .lean()
