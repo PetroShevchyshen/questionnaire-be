@@ -6,8 +6,9 @@ import logger from "../../../config/logger";
 export const submitAnswer = async (req: Request, res: Response) => {
   try {
     await submitUserAnswer(req.body);
-    res.status(StatusCodes.CREATED);
+    res.sendStatus(StatusCodes.CREATED);
   } catch (error) {
     logger.error("Fail of submitAnswer:", error);
+    res.send(error);
   }
 };

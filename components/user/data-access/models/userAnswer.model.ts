@@ -19,6 +19,7 @@ const userAnswer = new Schema<IUserAnswer>(
       },
     ],
     score: { type: Number, default: 0 },
+    timeSpent: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

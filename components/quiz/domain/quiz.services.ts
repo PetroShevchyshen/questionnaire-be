@@ -8,6 +8,7 @@ import {
 } from "../../question/data-access/question.repository";
 import { createAnswers } from "../../answer/data-access/answer.repository";
 import { IQuestionRequest } from "../../question/types/request/question.type";
+import { QuizSortOrder } from "../types/quizSort.enum";
 
 export const createQuizWithQuestions = async ({
   title,
@@ -56,8 +57,18 @@ export const createQuizWithQuestions = async ({
   }
 };
 
-export const getAllQuizzes = async (skipItems: number, limit: number) => {
-  return QuizRepository.getAllQuizzes(skipItems, limit);
+export const getAllQuizzes = async (
+  skipItems: number,
+  limit: number,
+  sortField: string,
+  sortOrderValue: QuizSortOrder
+) => {
+  return QuizRepository.getAllQuizzes(
+    skipItems,
+    limit,
+    sortField,
+    sortOrderValue
+  );
 };
 
 export const getQuizById = async (id: string) => {

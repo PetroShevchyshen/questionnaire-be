@@ -9,4 +9,5 @@ export interface IUserAnswer {
     }
   ];
   score: number;
+  timeSpent: number;
 }
