@@ -11,6 +11,7 @@ export const AvgAnswers = () => {
       $group: {
         _id: "$quiz",
         avg: { $avg: "$score" },
+        avgTime: { $avg: "$timeSpent" },
       },
     },
     { $addFields: { quizId: "$_id" } },
@@ -26,6 +27,7 @@ export const AvgAnswers = () => {
     {
       $project: {
         avg: "$avg",
+        avgTime: "$avgTime",
         quiz: "$result.title",
       },
     },

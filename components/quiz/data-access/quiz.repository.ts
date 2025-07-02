@@ -41,7 +41,7 @@ export const getAllQuizzes = async (
         path: "questions",
         populate: { path: "answers" },
       })
-      .sort({ [sortField]: sortOrderValue })
+      .sort({ [sortField]: sortOrderValue, _id: 1 })
       .skip(skipItems)
       .limit(limit)
       .lean()

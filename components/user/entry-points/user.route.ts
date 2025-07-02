@@ -1,8 +1,9 @@
 import express from "express";
-import { submitAnswer } from "./user.controller";
+import { getAvgAnswers, submitAnswer } from "./user.controller";
 
 const router = express.Router();
 
 router.post("/answer", submitAnswer);
+router.get("/avgAnswers", getAvgAnswers);
 
 export default router;
