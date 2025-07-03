@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { getAvgAnswer, submitUserAnswer } from "../domain/user.service";
+import { getAvgUsersAnswer, submitUserAnswer } from "../domain/user.service";
 import { Request, Response } from "express";
 import logger from "../../../config/logger";
 
@@ -15,7 +15,7 @@ export const submitAnswer = async (req: Request, res: Response) => {
 
 export const getAvgAnswers = async (_req: Request, res: Response) => {
   try {
-    const data = await getAvgAnswer();
+    const data = await getAvgUsersAnswer();
     res.json(data);
   } catch (error) {
     logger.error("Fail of getAvgAnswers:", error);

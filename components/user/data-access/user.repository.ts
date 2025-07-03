@@ -5,7 +5,7 @@ export const createUserAnswer = async (submitData: IUserAnswer) => {
   return new UserAnswerModel(submitData).save();
 };
 
-export const AvgAnswers = () => {
+export const getAvgAnswer = () => {
   return UserAnswerModel.aggregate([
     {
       $group: {
