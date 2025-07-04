@@ -5,12 +5,13 @@ export const createUserAnswer = async (submitData: IUserAnswer) => {
   return new UserAnswerModel(submitData).save();
 };
 
-export const AvgAnswers = () => {
+export const getAvgAnswer = () => {
   return UserAnswerModel.aggregate([
     {
       $group: {
         _id: "$quiz",
         avg: { $avg: "$score" },
+        avgTime: { $avg: "$timeSpent" },
       },
     },
     { $addFields: { quizId: "$_id" } },
@@ -26,6 +27,7 @@ export const AvgAnswers = () => {
     {
       $project: {
         avg: "$avg",
+        avgTime: "$avgTime",
         quiz: "$result.title",
       },
     },
