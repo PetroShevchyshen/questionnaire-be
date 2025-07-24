@@ -14,7 +14,8 @@
     "resolveJsonModule": true,
     "types": [
       "node",
-      "express"
+      "express",
+      "jest"
     ]
   },
   "include": [
