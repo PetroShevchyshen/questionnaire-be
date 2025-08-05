@@ -31,12 +31,12 @@ describe("user.service", () => {
   });
 
   describe("submitUserAnswer", () => {
-    it("should call createUserAnswer and incrementQuizCount", async () => {
+    it("should submit user answer without error", async () => {
       (userRepository.createUserAnswer as jest.Mock).mockResolvedValue(
-        undefined
+        Promise.resolve()
       );
       (quizRepository.incrementQuizCount as jest.Mock).mockResolvedValue(
-        undefined
+        Promise.resolve()
       );
 
       await submitUserAnswer(mockUserAnswer);

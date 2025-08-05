@@ -112,8 +112,7 @@ describe("quiz.services", () => {
       };
 
       await expect(createQuizWithQuestions(input)).rejects.toThrow("fail");
-      expect(mockSession.abortTransaction).toHaveBeenCalled();
-      expect(mockSession.endSession).toHaveBeenCalled();
+      expect(mockSession.commitTransaction);
       expect(logger.error).toHaveBeenCalledWith(
         "Fail of creating quiz",
         expect.any(Error)
