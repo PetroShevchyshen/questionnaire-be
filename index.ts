@@ -7,6 +7,7 @@ import requestLogger from "./middleware/logger.middleware";
 
 import userRoute from "./components/user/entry-points/user.route";
 import quizRoute from "./components/quiz/entry-points/quiz.route";
+import uploadPhotoRoute from "./components/upload-photo/entry-point/upload-photo.route";
 
 dotenv.config();
 const app = express();
@@ -23,6 +24,7 @@ url
 
 app.use("/api", userRoute);
 app.use("/api", quizRoute);
+app.use("/api", uploadPhotoRoute);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
